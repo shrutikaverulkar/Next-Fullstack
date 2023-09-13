@@ -12,22 +12,28 @@ type TODO = {
 const TodoTable = () => {
     const [allTodos, setAllTodos] = useState<TODO[]>([])
     const getTodos = async () => {
-        const res = await fetch("http://localhost:3000/api/todo", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        const { result } = await res.json()
-        console.log(result);
-        setAllTodos(result)
+        try {
+            const res = await fetch("http://localhost:3000/api/todo", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
 
+            const { result } = await res.json()
+            console.warn(result);
+            setAllTodos(result)
+
+        } catch (error) {
+            console.log(error)
+
+        }
     }
     useEffect(() => {
         getTodos()
     }, [])
-    const deleteTodos = async () => {
-        const res = await fetch("http://localhost:3000/api/todo", {
+    const deleteTodos = async (id: string) => {
+        const res = await fetch(`http://localhost:3000/api/todo/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -38,14 +44,12 @@ const TodoTable = () => {
         setAllTodos(result)
 
     }
-    useEffect(() => {
-        deleteTodos()
-    }, [])
+
     return <>
         {
             allTodos.map(item => <div className='flex gap-2' key={item._id}>
                 <h1>{item.task}</h1>
-                <button onClick={deleteTodos}>delete</button>
+                <button onClick={e => deleteTodos(item._id)}>delete</button>
             </div>)
         }
     </>
