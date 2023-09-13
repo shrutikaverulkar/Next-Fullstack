@@ -47,9 +47,9 @@ const TodoTable = () => {
 
     return <>
         {
-            allTodos.map(item => <div className='flex gap-2' key={item._id}>
+            allTodos.map((item: TODO) => <div className='flex gap-2' key={item._id}>
                 <h1>{item.task}</h1>
-                <button onClick={e => deleteTodos(item._id)}>delete</button>
+                <button onClick={e => deleteTodos(item._id as string)}>delete</button>
             </div>)
         }
     </>
