@@ -3,7 +3,7 @@ import Todo from "@/models/Todo";
 import { NextApiRequest } from "next";
 import { NextRequest, NextResponse } from "next/server";
 
-export const DELETE = async (req: NextApiRequest, { params }: { params: { id: string } }) => {
+export const DELETE = async (req: NextRequest, { params }: { params: { id: string } }) => {
     try {
         const { id } = params
         console.log(params);

@@ -22,7 +22,7 @@ const TodoTable = () => {
         console.log(result);
         setAllTodos(result)
 
-    } 
+    }
     useEffect(() => {
         getTodos()
     }, [])
@@ -43,7 +43,7 @@ const TodoTable = () => {
     }, [])
     return <>
         {
-            allTodos.map(item => <div className='flex gap-2'>
+            allTodos.map(item => <div className='flex gap-2' key={item._id}>
                 <h1>{item.task}</h1>
                 <button onClick={deleteTodos}>delete</button>
             </div>)
